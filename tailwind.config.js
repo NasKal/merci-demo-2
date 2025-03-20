@@ -22,9 +22,9 @@ export default {
           500: '#efc18d',
         },
       },
-      fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-        script: ['Dancing Script', 'cursive'],
+      sans: ['Quicksand', 'sans-serif'],  // Soft, rounded, friendly
+        serif: ['Playfair Display', 'serif'],  // Elegant and stylish
+        script: ['Dancing Script', 'cursive'],  // Handwritten playful font
       },
     },
   },
