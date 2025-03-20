@@ -109,8 +109,8 @@ function App() {
     <motion.div 
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: 'auto' }}
-      transition={{ duration: 0.3 }}
-      className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden transition-all duration-300"
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden overflow-hidden"
     >
       <ul className="flex flex-col space-y-6 p-6 text-lg text-center">
         {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
