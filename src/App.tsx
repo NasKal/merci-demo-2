@@ -70,7 +70,7 @@ function App() {
             </motion.div>
             <nav className="hidden md:block">
               <ul className="flex space-x-12">
-                {['About', 'Menu', 'Gallery', 'Contact'].map((item) => (
+                {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
                   <motion.li 
                     key={item}
                     className="relative group cursor-pointer"
