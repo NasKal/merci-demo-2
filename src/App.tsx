@@ -4,6 +4,10 @@ import { Instagram, Facebook, Clock, Phone, MapPin, ExternalLink, Cake, Cookie, 
 import { CursorTrail } from './components/CursorTrail';
 import { FloatingIcons } from './components/FloatingIcons';
 import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+
 
 
 const menuItems = [
@@ -60,76 +64,69 @@ function App() {
       
       {/* Header */}
       <motion.header 
-        style={{ opacity: headerOpacity }}
-        className="fixed w-full bg-white/80 backdrop-blur-lg shadow-sm z-50"
-      >
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <motion.div 
-              className="flex items-center space-x-3"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Heart className="text-primary-400" size={32} />
-              <span className="text-3xl font-script text-primary-600">Merci</span>
-            </motion.div>
-            <nav className="hidden md:block">
-              <motion.div
-  className={`absolute top-20 left-0 w-full bg-white shadow-lg md:hidden transition-all duration-300 ${
-    menuOpen ? "opacity-100 h-auto py-4" : "opacity-0 h-0 overflow-hidden"
-  }`}
-  initial={{ opacity: 0, height: 0 }}
-  animate={{ opacity: menuOpen ? 1 : 0, height: menuOpen ? "auto" : 0 }}
-  transition={{ duration: 0.3 }}
+  className="fixed w-full bg-white/80 backdrop-blur-lg shadow-sm z-50"
 >
-  <ul className="flex flex-col items-center space-y-6 text-lg py-4">
-    {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
-      <motion.li 
-        key={item}
+  <div className="container mx-auto px-6">
+    <div className="flex items-center justify-between h-20">
+      {/* Logo */}
+      <motion.div 
+        className="flex items-center space-x-3"
         whileHover={{ scale: 1.05 }}
-        className="text-gray-800 hover:text-primary-500 transition-colors cursor-pointer font-medium"
-        onClick={() => setMenuOpen(false)}
       >
-        {item}
-      </motion.li>
-    ))}
-  </ul>
-</motion.div>
+        <span className="text-3xl font-script text-primary-600">Merci</span>
+      </motion.div>
 
-              <ul className="flex space-x-12">
-                {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
-                  <motion.li 
-                    key={item}
-                    className="relative group cursor-pointer"
-                    whileHover={{ y: -2 }}
-                  >
-                    <span className="text-gray-800 font-medium group-hover:text-primary-500 transition-colors">
-                      {item}
-                    </span>
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-300 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-                  </motion.li>
-                ))}
-              </ul>
-            </nav>
-            <motion.button
-  className="md:hidden text-gray-600"
-  whileTap={{ scale: 0.95 }}
-  onClick={() => setMenuOpen(!menuOpen)}
->
-  {menuOpen ? (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  ) : (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
+      {/* Desktop Navigation */}
+      <nav className="hidden md:block">
+        <ul className="flex space-x-12">
+          {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
+            <motion.li 
+              key={item}
+              className="relative group cursor-pointer"
+              whileHover={{ y: -2 }}
+            >
+              <span className="text-gray-800 font-medium group-hover:text-primary-500 transition-colors">
+                {item}
+              </span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-300 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+            </motion.li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Burger Button for Mobile */}
+      <button 
+        className="md:hidden text-gray-600 focus:outline-none" 
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? <X size={32} /> : <Menu size={32} />}
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile Menu */}
+  {menuOpen && (
+    <motion.div 
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      transition={{ duration: 0.3 }}
+      className="absolute top-20 left-0 w-full bg-white shadow-lg md:hidden transition-all duration-300"
+    >
+      <ul className="flex flex-col space-y-6 p-6 text-lg text-center">
+        {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
+          <motion.li 
+            key={item}
+            whileHover={{ scale: 1.1 }}
+            className="text-gray-800 hover:text-primary-500 transition-colors cursor-pointer"
+            onClick={() => setMenuOpen(false)} // Close menu when clicking a link
+          >
+            {item}
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
   )}
-</motion.button>
-
-          </div>
-        </div>
-      </motion.header>
-
+</motion.header>
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
