@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Instagram, Facebook, Clock, Phone, MapPin, ExternalLink, Cake, Cookie, Croissant, Bird as Birthday, Coffee, Heart, ChevronDown } from 'lucide-react';
 import { CursorTrail } from './components/CursorTrail';
 import { FloatingIcons } from './components/FloatingIcons';
+import React, { useEffect, useState } from 'react';
+
 
 const menuItems = [
   {
@@ -36,6 +38,8 @@ const menuItems = [
 ];
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const { scrollYProgress } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -69,6 +73,28 @@ function App() {
               <span className="text-3xl font-script text-primary-600">Merci</span>
             </motion.div>
             <nav className="hidden md:block">
+              <motion.div
+  className={`absolute top-20 left-0 w-full bg-white shadow-lg md:hidden transition-all duration-300 ${
+    menuOpen ? "opacity-100 h-auto py-4" : "opacity-0 h-0 overflow-hidden"
+  }`}
+  initial={{ opacity: 0, height: 0 }}
+  animate={{ opacity: menuOpen ? 1 : 0, height: menuOpen ? "auto" : 0 }}
+  transition={{ duration: 0.3 }}
+>
+  <ul className="flex flex-col items-center space-y-6 text-lg py-4">
+    {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
+      <motion.li 
+        key={item}
+        whileHover={{ scale: 1.05 }}
+        className="text-gray-800 hover:text-primary-500 transition-colors cursor-pointer font-medium"
+        onClick={() => setMenuOpen(false)}
+      >
+        {item}
+      </motion.li>
+    ))}
+  </ul>
+</motion.div>
+
               <ul className="flex space-x-12">
                 {['Η Ιστορία Μας', 'Μενού', 'Γκάλλερι', 'Επικοινωνία'].map((item) => (
                   <motion.li 
@@ -85,13 +111,21 @@ function App() {
               </ul>
             </nav>
             <motion.button
-              className="md:hidden text-gray-600"
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </motion.button>
+  className="md:hidden text-gray-600"
+  whileTap={{ scale: 0.95 }}
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  {menuOpen ? (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  ) : (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  )}
+</motion.button>
+
           </div>
         </div>
       </motion.header>
